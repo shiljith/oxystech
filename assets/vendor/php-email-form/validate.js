@@ -113,21 +113,30 @@
       var recaptcha_site_key = $(this).data('recaptcha-site-key');
       grecaptcha.ready(function() {
         grecaptcha.execute(recaptcha_site_key, {action: 'php_email_form_submit'}).then(function(token) {
-          php_email_form_submit(this_form,action,this_form.serialize() + '&recaptcha-response=' + token);
+          php_email_form_submit(this_form,action,this_form.serializeArray() + '&recaptcha-response=' + token);
         });
       });
     } else {
-      php_email_form_submit(this_form,action,this_form.serialize());
+      php_email_form_submit(this_form,action,this_form.serializeArray());
     }
     
     return true;
   });
 
   function php_email_form_submit(this_form, action, data) {
+    var userData = {
+      name: data[0].value,
+      email: data[1].value,
+      subject: data[2].value,
+      message: data[3].value
+    };
+    console.log("data", userData);
     $.ajax({
       type: "POST",
       url: action,
-      data: data,
+      dataType: "json",
+      contentType: 'application/json',
+      data: JSON.stringify(userData),
       timeout: 40000
     }).done( function(msg){
       if (msg == 'OK') {
