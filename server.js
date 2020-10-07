@@ -3,6 +3,7 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const path = require("path");
 const bodyParser = require("body-parser");
+var cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -10,6 +11,7 @@ const port = process.env.PORT || 8080;
 app.use(express.static(__dirname));
 bodyParser.urlencoded({ extended: true });
 app.use(bodyParser.json());
+app.use(cors());
 
 const config = {
 	host: "smtp.gmail.com",
