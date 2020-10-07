@@ -1649,3 +1649,16 @@ section {
   color: #fff;
   text-decoration: none;
 }
+
+.logo {
+  text-transform: capitalize!important;
+}
+.logo a {
+  font-weight: bold;
+}
+.logo small {
+  color: #b9c3ff;
+  font-size: 18px;
+  margin-left: 6px;
+  font-weight: bold;
+}
